@@ -24,11 +24,11 @@
 
         packages.fastcards = pkgs.buildGoModule {
           pname = "fastcards";
-          version = "2026.01.30-a";
+          version = "2026.02.15-a";
 
           src = self;
 
-          vendorHash = "sha256-FBb8RFndx6wwdu08B95d+qas4VWs6Vr7UrXVGLyCW0g=";
+          vendorHash = "sha256-psfVdzWz3jU+QEliVA2dPY5nZDy2HMFJ0B9XP25jjxU=";
 
           subPackages = [ "." ];
           ldflags = [ "-s" "-w" ];
