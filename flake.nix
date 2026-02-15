@@ -40,7 +40,7 @@
           };
         };
 
-        apps.default = {
+        apps.fastcards = {
           type = "app";
           program = "${self.packages.${system}.fastcards}/bin/fastcards";
         };
