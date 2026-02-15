@@ -18,6 +18,9 @@ type keyMap struct {
 	Quit key.Binding
 }
 
+var cardsStudied int
+var sessionMsg string // <-- new: show XP gain messages
+
 func newKeyMap() keyMap {
 	return keyMap{
 		Flip: key.NewBinding(
@@ -83,14 +86,14 @@ func (m *Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 			if m.showBack {
 				ref := m.due[m.index]
 				internal.Promote(&ref.Deck.Cards[ref.Idx])
-				m.next()
+				m.nextWithXP()
 			}
 
 		case key.Matches(msg, m.keys.No):
 			if m.showBack {
 				ref := m.due[m.index]
 				internal.Reset(&ref.Deck.Cards[ref.Idx])
-				m.next()
+				m.nextWithXP()
 			}
 		}
 	}
@@ -98,19 +101,42 @@ func (m *Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	return m, nil
 }
 
-func (m *Model) next() {
+func (m *Model) nextWithXP() {
 	m.showBack = false
 	m.index++
+	cardsStudied++
 
+	sessionMsg = "" // reset
+
+	// +20 XP every 5 cards
+	if cardsStudied%5 == 0 {
+		xp, _ := internal.LoadXP()
+		xp += 20
+		internal.SaveXP(xp)
+		sessionMsg = fmt.Sprintf(" +20 XP! Studied %d cards", cardsStudied)
+	}
+
+	// If finished all due cards, award +100 XP
 	if m.index >= len(m.due) {
 		m.done = true
+		xp, _ := internal.LoadXP()
+		xp += 100
+		internal.SaveXP(xp)
+		if sessionMsg != "" {
+			sessionMsg += " "
+		}
+		sessionMsg += " +100 XP! Finished all due cards"
 	}
 }
 
 func (m *Model) View() string {
 
 	if m.done {
-		return "\nAll done.\nPress [q] to quit."
+		msg := "\nAll done.\nPress [q] to quit."
+		if sessionMsg != "" {
+			msg = sessionMsg + "\n" + msg
+		}
+		return msg
 	}
 
 	ref := m.due[m.index]
@@ -129,7 +155,13 @@ func (m *Model) View() string {
 
 	progress := fmt.Sprintf("Card %d/%d\n\n", m.index+1, len(m.due))
 
-	return progress + box + "\n\n" + m.help.View(m)
+	msg := progress + box
+
+	if sessionMsg != "" {
+		msg = sessionMsg + "\n\n" + msg
+	}
+
+	return msg + "\n\n" + m.help.View(m)
 }
 
 func (m *Model) ShortHelp() []key.Binding {

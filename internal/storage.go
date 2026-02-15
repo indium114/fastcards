@@ -15,12 +15,20 @@ func decksDir() string {
 	return filepath.Join(baseDir(), "decks")
 }
 
+func dataDir() string {
+	return filepath.Join(baseDir(), "data")
+}
+
 func EnsureDirs() error {
 	return os.MkdirAll(decksDir(), 0755)
 }
 
 func deckPath(name string) string {
 	return filepath.Join(decksDir(), name+".json")
+}
+
+func xpPath() string {
+	return filepath.Join(dataDir(), "xp.json")
 }
 
 func SaveDeck(deck Deck) error {
