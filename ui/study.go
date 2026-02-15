@@ -86,14 +86,14 @@ func (m *Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 			if m.showBack {
 				ref := m.due[m.index]
 				internal.Promote(&ref.Deck.Cards[ref.Idx])
-				m.nextWithXP()
+				m.next(true)
 			}
 
 		case key.Matches(msg, m.keys.No):
 			if m.showBack {
 				ref := m.due[m.index]
 				internal.Reset(&ref.Deck.Cards[ref.Idx])
-				m.nextWithXP()
+				m.next(false)
 			}
 		}
 	}
@@ -101,31 +101,41 @@ func (m *Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	return m, nil
 }
 
-func (m *Model) nextWithXP() {
+func (m *Model) next(correct bool) {
 	m.showBack = false
 	m.index++
 	cardsStudied++
 
-	sessionMsg = "" // reset
+	sessionMsg = ""
 
-	// +20 XP every 5 cards
-	if cardsStudied%5 == 0 {
-		xp, _ := internal.LoadXP()
-		xp += 20
-		internal.SaveXP(xp)
-		sessionMsg = fmt.Sprintf(" +20 XP! Studied %d cards", cardsStudied)
+	xp, _ := internal.LoadXP()
+
+	if correct {
+		if cardsStudied%5 == 0 {
+			xp += 20
+			sessionMsg = fmt.Sprintf(" +20 XP! Studied %d cards", cardsStudied)
+		}
+	} else {
+		xp -= 5
+		if xp < 0 {
+			xp = 0
+		}
+		sessionMsg = "󱕤 -5 XP for incorrect answer"
 	}
 
-	// If finished all due cards, award +100 XP
-	if m.index >= len(m.due) {
-		m.done = true
-		xp, _ := internal.LoadXP()
+	internal.SaveXP(xp)
+
+	if m.index >= len(m.due) && correct {
 		xp += 100
 		internal.SaveXP(xp)
 		if sessionMsg != "" {
 			sessionMsg += " "
 		}
 		sessionMsg += " +100 XP! Finished all due cards"
+	}
+
+	if m.index >= len(m.due) {
+		m.done = true
 	}
 }
 
