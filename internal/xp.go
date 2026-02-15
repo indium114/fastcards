@@ -3,7 +3,6 @@ package internal
 import (
 	"encoding/json"
 	"os"
-	"path/filepath"
 )
 
 func LoadXP() (int, error) {
