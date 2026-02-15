@@ -46,3 +46,27 @@ func LoadDeck(name string) (Deck, error) {
 	err = json.Unmarshal(data, &deck)
 	return deck, err
 }
+
+func ListDeckNames() ([]string, error) {
+	dir := decksDir()
+
+	entries, err := os.ReadDir(dir)
+	if err != nil {
+		return nil, err
+	}
+
+	var names []string
+
+	for _, e := range entries {
+		if e.IsDir() {
+			continue
+		}
+
+		if filepath.Ext(e.Name()) == ".json" {
+			name := e.Name()[:len(e.Name())-5]
+			names = append(names, name)
+		}
+	}
+
+	return names, nil
+}
