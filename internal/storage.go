@@ -2,6 +2,7 @@ package internal
 
 import (
 	"encoding/json"
+	"fmt"
 	"os"
 	"path/filepath"
 )
@@ -77,4 +78,23 @@ func ListDeckNames() ([]string, error) {
 	}
 
 	return names, nil
+}
+
+func CreateDeck(name string) string {
+	path := deckPath(name)
+
+	_, err := os.Stat(path)
+	if os.IsNotExist(err) {
+		deck := Deck{
+			ID:    NewID(),
+			Name:  name,
+			Cards: []Card{},
+		}
+
+		if err := SaveDeck(deck); err != nil {
+			fmt.Println("Error:", err)
+		}
+	}
+
+	return path
 }

@@ -19,11 +19,11 @@ var createCmd = &cobra.Command{
 		}
 
 		if err := internal.SaveDeck(deck); err != nil {
-			fmt.Println("Error: ", err)
+			fmt.Println("Error:", err)
 			return
 		}
 
-		fmt.Println("Deck created: ", deck.Name)
+		fmt.Println("Deck created:", deck.Name)
 	},
 }
 
