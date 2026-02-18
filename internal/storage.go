@@ -85,6 +85,30 @@ func ListDeckNames() ([]string, error) {
 	return names, nil
 }
 
+func ListArchivedDeckNames() ([]string, error) {
+	dir := ArchiveDir()
+
+	entries, err := os.ReadDir(dir)
+	if err != nil {
+		return nil, err
+	}
+
+	var names []string
+
+	for _, e := range entries {
+		if e.IsDir() {
+			continue
+		}
+
+		if filepath.Ext(e.Name()) == ".json" {
+			name := e.Name()[:len(e.Name())-5]
+			names = append(names, name)
+		}
+	}
+
+	return names, nil
+}
+
 func CreateDeck(name string) string {
 	path := deckPath(name)
 
