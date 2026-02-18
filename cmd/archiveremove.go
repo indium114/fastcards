@@ -30,5 +30,5 @@ var archiveremoveCmd = &cobra.Command{
 }
 
 func init() {
-	archiveCmd.AddCommand(archiveCmd)
+	archiveCmd.AddCommand(archiveremoveCmd)
 }
