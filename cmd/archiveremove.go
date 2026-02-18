@@ -11,8 +11,8 @@ import (
 )
 
 var archiveremoveCmd = &cobra.Command{
-	Use:   "add <file>",
-	Short: "Add a deck to the Deck Archive",
+	Use:   "remove <file>",
+	Short: "Remove a deck from the Deck Archive",
 	Args:  cobra.ExactArgs(1),
 	Run: func(cmd *cobra.Command, args []string) {
 		deck := args[0] + ".json"
