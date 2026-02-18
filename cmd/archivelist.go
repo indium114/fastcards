@@ -24,18 +24,7 @@ var archivelistCmd = &cobra.Command{
 		}
 
 		for _, name := range names {
-			deck, err := internal.LoadDeck(name)
-			if err != nil {
-				continue
-			}
-			total := len(deck.Cards)
-			due := 0
-			for _, c := range deck.Cards {
-				if internal.IsDue(c) {
-					due++
-				}
-			}
-			fmt.Printf("%s: %d cards\n", name, total)
+			fmt.Println(name)
 		}
 
 		return nil
