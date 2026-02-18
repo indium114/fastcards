@@ -12,24 +12,29 @@ func baseDir() string {
 	return filepath.Join(home, ".fastcards")
 }
 
-func decksDir() string {
+func DecksDir() string {
 	return filepath.Join(baseDir(), "decks")
 }
 
-func dataDir() string {
+func ArchiveDir() string {
+	return filepath.Join(baseDir(), "archive")
+}
+
+func DataDir() string {
 	return filepath.Join(baseDir(), "data")
 }
 
 func EnsureDirs() error {
-	return os.MkdirAll(decksDir(), 0755)
+	os.MkdirAll(ArchiveDir(), 0755)
+	return os.MkdirAll(DecksDir(), 0755)
 }
 
 func deckPath(name string) string {
-	return filepath.Join(decksDir(), name+".json")
+	return filepath.Join(DecksDir(), name+".json")
 }
 
 func xpPath() string {
-	return filepath.Join(dataDir(), "xp.json")
+	return filepath.Join(DataDir(), "xp.json")
 }
 
 func SaveDeck(deck Deck) error {
@@ -57,7 +62,31 @@ func LoadDeck(name string) (Deck, error) {
 }
 
 func ListDeckNames() ([]string, error) {
-	dir := decksDir()
+	dir := DecksDir()
+
+	entries, err := os.ReadDir(dir)
+	if err != nil {
+		return nil, err
+	}
+
+	var names []string
+
+	for _, e := range entries {
+		if e.IsDir() {
+			continue
+		}
+
+		if filepath.Ext(e.Name()) == ".json" {
+			name := e.Name()[:len(e.Name())-5]
+			names = append(names, name)
+		}
+	}
+
+	return names, nil
+}
+
+func ListArchivedDeckNames() ([]string, error) {
+	dir := ArchiveDir()
 
 	entries, err := os.ReadDir(dir)
 	if err != nil {
