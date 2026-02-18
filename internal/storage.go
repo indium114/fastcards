@@ -25,8 +25,8 @@ func DataDir() string {
 }
 
 func EnsureDirs() error {
+	os.MkdirAll(ArchiveDir(), 0755)
 	return os.MkdirAll(DecksDir(), 0755)
-	return os.MkdirAll(ArchiveDir(), 0755)
 }
 
 func deckPath(name string) string {

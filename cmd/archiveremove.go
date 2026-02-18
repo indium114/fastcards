@@ -25,7 +25,7 @@ var archiveremoveCmd = &cobra.Command{
 			log.Fatal("Error:", err)
 		}
 
-		fmt.Println("Archived deck:", deck)
+		fmt.Println("Unarchived deck:", deck)
 	},
 }
 
