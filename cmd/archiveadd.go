@@ -19,7 +19,7 @@ var archiveaddCmd = &cobra.Command{
 		deck := args[0] + ".json"
 
 		oldpath := filepath.Join(internal.DecksDir(), deck)
-		newpath := internal.ArchiveDir()
+		newpath := filepath.Join(internal.ArchiveDir(), deck)
 
 		err := os.Rename(oldpath, newpath)
 		if err != nil {
