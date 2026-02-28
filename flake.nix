@@ -36,7 +36,7 @@
           meta = with pkgs.lib; {
             description = "A minimal to-do list program with a few amenities";
             license = licenses.mit;
-            platforms = platforms.linux;
+            platforms = platforms.all;
           };
         };
 
