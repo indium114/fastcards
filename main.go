@@ -1,6 +1,6 @@
 package main
 
-import "github.com/stikypiston/fastcards/cmd"
+import "github.com/indium114/fastcards/cmd"
 
 func main() {
 	cmd.Execute()

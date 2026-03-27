@@ -3,7 +3,7 @@ package ui
 import (
 	"fmt"
 
-	"github.com/stikypiston/fastcards/internal"
+	"github.com/indium114/fastcards/internal"
 
 	"github.com/charmbracelet/bubbles/help"
 	"github.com/charmbracelet/bubbles/key"

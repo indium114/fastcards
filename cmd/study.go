@@ -2,8 +2,8 @@ package cmd
 
 import (
 	"fmt"
-	"github.com/stikypiston/fastcards/internal"
-	"github.com/stikypiston/fastcards/ui"
+	"github.com/indium114/fastcards/internal"
+	"github.com/indium114/fastcards/ui"
 
 	"github.com/spf13/cobra"
 

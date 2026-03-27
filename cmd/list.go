@@ -3,7 +3,7 @@ package cmd
 import (
 	"fmt"
 
-	"github.com/stikypiston/fastcards/internal"
+	"github.com/indium114/fastcards/internal"
 
 	"github.com/spf13/cobra"
 )

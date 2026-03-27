@@ -1,4 +1,4 @@
-module github.com/stikypiston/fastcards
+module github.com/indium114/fastcards
 
 go 1.25.5
 

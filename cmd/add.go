@@ -4,7 +4,7 @@ import (
 	"fmt"
 
 	"github.com/spf13/cobra"
-	"github.com/stikypiston/fastcards/internal"
+	"github.com/indium114/fastcards/internal"
 )
 
 // addCmd represents the add command
