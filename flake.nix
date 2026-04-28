@@ -24,7 +24,7 @@
 
         packages.fastcards = pkgs.buildGoModule {
           pname = "fastcards";
-          version = "2026.02.18-a";
+          version = "2026.04.28-a";
 
           src = self;
 
