@@ -13,7 +13,7 @@ import (
 // studyCmd represents the study command
 var studyCmd = &cobra.Command{
 	Use:   "study [deck]",
-	Short: "Study due cards (all decks if none specified)",
+	Short: "Study due cards",
 	Args:  cobra.MaximumNArgs(1),
 	RunE: func(cmd *cobra.Command, args []string) error {
 
@@ -23,7 +23,7 @@ var studyCmd = &cobra.Command{
 		if len(args) == 1 {
 			d, err := internal.LoadDeck(args[0])
 			if err != nil {
-				return fmt.Errorf("deck '%s' not found", args[0])
+				return fmt.Errorf("Deck '%s' not found", args[0])
 			}
 			decks = append(decks, &d)
 

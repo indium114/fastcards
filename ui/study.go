@@ -19,7 +19,7 @@ type keyMap struct {
 }
 
 var cardsStudied int
-var sessionMsg string // <-- new: show XP gain messages
+var sessionMsg string
 
 func newKeyMap() keyMap {
 	return keyMap{
