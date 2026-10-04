@@ -423,9 +423,9 @@ checksum = "5729f5117e208430e437df2f4843f5e5952997175992d1414f94c57d61e270b4"
 
 [[package]]
 name = "demand"
-version = "2.1.0"
+version = "2.3.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "c578ab3368e9211f6f8e262c60b105d5e91bd9725a38567ccfe9f1c7d86507f2"
+checksum = "e7585a0f6254e4545ecd6efced4a844500ea857cac7ff214c7dfdbfde6c06c9d"
 dependencies = [
  "console",
  "fuzzy-matcher",
